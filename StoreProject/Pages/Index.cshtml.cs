@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,9 +18,14 @@ namespace StoreProject.Pages
             _logger = logger;
         }
 
-        public void SaveUserName(String username)
+        public IActionResult OnPostSaveUserNameAsync(String username)
         {
-            Response.Cookies.Append("UserName", username);
+            Response.Cookies.Append("UserName", username, new Microsoft.AspNetCore.Http.CookieOptions()
+            {
+                IsEssential = true,
+                MaxAge = TimeSpan.FromMinutes(5)
+            });
+            return RedirectToPage();
         }
 
         public void OnGet()

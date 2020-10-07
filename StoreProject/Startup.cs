@@ -26,6 +26,14 @@ namespace StoreProject
         {
             services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(convertUrlConnectionString(Configuration["DATABASE_URL"])));
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

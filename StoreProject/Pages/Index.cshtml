@@ -9,6 +9,8 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+
+<h1>Welcome @Request.Cookies["UserName"]</h1>
 <form asp-page-handler="SaveUserName" method="post">
     <input name="username" placeholder="User Name"/>
     <button type="submit">Save</button>
