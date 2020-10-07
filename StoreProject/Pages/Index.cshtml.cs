@@ -17,6 +17,11 @@ namespace StoreProject.Pages
             _logger = logger;
         }
 
+        public void SaveUserName(String username)
+        {
+            Response.Cookies.Append("UserName", username);
+        }
+
         public void OnGet()
         {
 
