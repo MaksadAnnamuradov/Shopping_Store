@@ -9,9 +9,16 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-
-<h1>Welcome @Request.Cookies["UserName"]</h1>
+@if (Request.Cookies["UserName"] == null)
+{
+   <h1>Welcome</h1>
+   <h3>Please enter User Name</h3>
 <form asp-page-handler="SaveUserName" method="post">
     <input name="username" placeholder="User Name"/>
     <button type="submit">Save</button>
 </form>
+}
+else
+{
+<h1>Welcome @Request.Cookies["UserName"]</h1>
+}
