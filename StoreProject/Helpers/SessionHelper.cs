@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using StoreProject.Data;
+using System.Collections.Generic;
 
 namespace StoreProject.Helpers
 {
@@ -10,10 +12,14 @@ namespace StoreProject.Helpers
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
-        public static T GetObjectFromJson<T>(this ISession session, string key)
+        public static List<LineItem> GetObjectFromJson(this ISession session, string key)
         {
             var value = session.GetString(key);
-            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+            if (value == null)
+            {
+                return new List<LineItem>();
+            }
+            return JsonConvert.DeserializeObject<List<LineItem>>(value);
         }
     }
 }

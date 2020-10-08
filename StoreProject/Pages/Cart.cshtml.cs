@@ -13,50 +13,81 @@ namespace StoreProject.Pages
 
         public double Total { get; set; }
 
+
+        private readonly StoreProject.ApplicationDbContext _context;
+
+        public CartModel(StoreProject.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IList<Item> Item { get; set; }
+
+    /*    public async Task OnGetAsync()
+        {
+            Item = await _context.Items.ToListAsync();
+        }*/
+
         public void OnGet()
         {
-            cart = SessionHelper.GetObjectFromJson<List<LineItem>>(HttpContext.Session, "cart");
+            cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
 
             //Total = cart.Sum(i => i.Item.Price * castQuantity);
         }
 
         public IActionResult OnGetAddToCart(int id)
         {
+
+            var cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
+
             //var productModel = new LineItem();
 
-            var cartItems = cart.FirstOrDefault(i => i.Item.Id == id);
+            var newCartItem = _context.Items.FirstOrDefault(i => i.Id == id);
 
-            if (cartItems == null)
+            //var cartItems = SessionHelper.GetObjectFromJson<List<LineItem>>(HttpContext.Session, "cart");
+
+
+            var existingCartItem = cart.FirstOrDefault(i => i.Item.Id == id);
+
+            if (existingCartItem == null)
             {
-                var item = new Item { Id = id, Price = 1.4M };
 
+             
                 cart.Add(new LineItem
                 {
-                    Item = item,
+                    Item = newCartItem,
+                    Quantity = 1
                     
                 });
+
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             else
             {
-                cartItems.Quantity += 1;
+                existingCartItem.Quantity += 1;
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             return RedirectToPage("Cart");
         }
 
-    /*    public IActionResult OnGetDelete( id)
+        public IActionResult OnGetDelete(int id)
         {
-            cart = cart.FirstOrDefault(i => i.Item.Id == id);
-            int index = Exists(cart, id);
-            cart.RemoveAt(index);
+            var cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
+
+            var Item = cart.FirstOrDefault(i => i.Item.Id == id);
+
+            if(Item != null)
+            {
+                cart.Remove(Item);
+            }
+           
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToPage("Cart");
-        }*/
+        }
 
         public IActionResult OnPostUpdate(int[] quantities)
         {
-            cart = SessionHelper.GetObjectFromJson<List<LineItem>>(HttpContext.Session, "cart");
+            cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
 
             for (var i = 0; i < cart.Count; i++)
             {
@@ -64,20 +95,10 @@ namespace StoreProject.Pages
             }
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
             return RedirectToPage("Cart");
         }
 
-    /*    private int Exists(List<Item> cart, string id)
-        {
-            for (var i = 0; i < cart.Count; i++)
-            {
-                if (cart[i].Item.Id == id)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-*/
+
     }
 }

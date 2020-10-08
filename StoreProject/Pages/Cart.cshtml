@@ -16,21 +16,20 @@
     <form method="post" asp-page="cart" asp-page-handler="Update">
         <table border="1">
             <tr>
-                <th>Action</th>
+                
                 <th>Id</th>
                 <th>Name</th>
               
                 <th>Price</th>
                 <th>Quantity <input type="submit" value="Update" /></th>
                 <th>Sub Total</th>
+                <th>Delete</th>
             </tr>
             @foreach (var item in Model.cart)
             {
                 <tr align="center">
-                    <td align="center">
-                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.ItemId">X</a>
-                    </td>
-                    <td>@item.ItemId</td>
+                    
+                    <td>@item.Item.Id</td>
                     <td>@item.Item.Name</td>
                     
                     <td>$@item.Item.Price</td>
@@ -38,6 +37,10 @@
                     <td>
                         $@(item.Item.Price * item.Quantity)
                     </td>
+
+                    <td align="center">
+                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Item.Id">X</a>
+                     </td>
                 </tr>
             }
 
