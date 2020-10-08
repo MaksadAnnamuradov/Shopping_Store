@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StoreProject.Data;
 
@@ -30,22 +31,40 @@ namespace StoreProject.Pages
             return RedirectToPage();
         }
 
-
-        private void LoadCartFromSession()
+     
+         
+    /*private void LoadCartFromSession()
+    {
+        Cart = new List<LineItem>();
+        var CartJson = HttpContext.Session.GetString("CartJson");
+        if(CartJson != null)
         {
-            Cart = new List<LineItem>();
-            var CartJson = HttpContext.Session.GetString("CartJson");
-            if(CartJson != null)
+            foreach(var item in System.Text.Json.JsonSerializer.Deserialize<IEnumerable<LineItem>>(CartJson))
             {
-                foreach(var item in System.Text.Json.JsonSerializer.Deserialize<IEnumerable<LineItem>>(CartJson))
-                {
-                    Cart.Add(item);
-                }
+                Cart.Add(item);
             }
         }
-        public void OnGet()
-        {
+    }
 
+
+    public async Task<IActionResult> OnPostAddItem(string itemName, int quantity)
+    {
+        LoadCartFromSession();
+
+        var existingLine = LoadCartFromSession.FirstOrDefault(i => i.Item.Name == itemName);
+
+        if(existingLine == null)
+        {
+            var item = new Item { Name = itemName, Price = 1.23M };
+            LoadCartFromSession.Add(new LineItem){
+                Item = item,
+
+            }
         }
     }
+    public void OnGet()
+    {
+
+    }*/
+}
 }

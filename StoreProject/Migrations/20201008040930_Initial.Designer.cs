@@ -9,7 +9,7 @@ using StoreProject;
 namespace StoreProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201005230221_Initial")]
+    [Migration("20201008040930_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,7 +20,7 @@ namespace StoreProject.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("StoreProject.Item", b =>
+            modelBuilder.Entity("StoreProject.Data.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

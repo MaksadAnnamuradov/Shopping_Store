@@ -1,25 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using StoreProject;
 using StoreProject.Data;
+using StoreProject;
 
-namespace StoreProject.Pages.Items
+namespace StoreProject.Pages
 {
-    public class IndexModel : PageModel
+    public class DisplayItems : PageModel
     {
         private readonly StoreProject.ApplicationDbContext _context;
 
-        public IndexModel(StoreProject.ApplicationDbContext context)
+        public DisplayItems(StoreProject.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<Item> Item { get;set; }
+        public IList<Item> Item { get; set; }
 
         public async Task OnGetAsync()
         {

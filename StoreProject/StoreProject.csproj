@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\LineItem\**" />
+    <Content Remove="Pages\LineItem\**" />
+    <EmbeddedResource Remove="Pages\LineItem\**" />
+    <None Remove="Pages\LineItem\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,10 +25,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\LineItem\" />
   </ItemGroup>
 
 </Project>

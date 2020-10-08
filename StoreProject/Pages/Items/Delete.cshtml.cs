@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using StoreProject;
+using StoreProject.Data;
 
 namespace StoreProject.Pages.Items
 {

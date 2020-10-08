@@ -18,7 +18,7 @@ namespace StoreProject.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("StoreProject.Item", b =>
+            modelBuilder.Entity("StoreProject.Data.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
