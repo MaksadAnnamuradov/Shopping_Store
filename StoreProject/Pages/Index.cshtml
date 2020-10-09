@@ -1,27 +1,50 @@
 ﻿@page
+
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
 
-@if (Request.Cookies["UserName"] == null)
-{
-   <h1>Welcome</h1>
-   <h3>Please enter User Name</h3>
-<form asp-page-handler="SaveUserName" method="post">
-    <input name="username" placeholder="User Name"/>
-    <button type="submit" class="btn btn-outline-primary">Save</button>
-</form>
-}
-else
-{
-<h1>Welcome @Request.Cookies["UserName"]</h1>
-<div>
-    <a asp-page="./DisplayItems">Items</a>
-</div>
-}
+</head>
 
+<body class="p-3 mb-2 bg-white text-black-50">
 
+@*    <form class="form-signin">
+        
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="username" class="sr-only" asp-page-handler="SaveUserName" method="post"> Username</label>
+        <input  id="username" class="form-control" placeholder="Username" required="" autofocus="" >
 
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+    </form>*@
+
+    @if (Request.Cookies["UserName"] == null)
+    {
+        <h1 class="h3 mb-3 font-weight-normal"> Welcome! Please sign in: </h1>
+
+        <form class="form-signin" asp-page-handler="SaveUserName" method="post">
+            <input name="username" placeholder="User Name" />
+            <button type="submit" class="btn btn-outline-primary bg-dark">Save</button>
+        </form>
+    }
+    else
+    {
+        <h1>Welcome @Request.Cookies["UserName"]</h1>
+       
+    }
+
+</body>
+</html>

@@ -21,8 +21,21 @@ namespace StoreProject.Pages
             _logger = logger;
         }
 
+
         public IActionResult OnPostSaveUserNameAsync(String username)
         {
+
+            /*Response.Cookies["userInfo"]["userName"] = "patrick"; //userInfo is the cookie, userName is the subkey
+            Response.Cookies["userInfo"]["lastVisit"] = DateTime.Now.ToString(); //now lastVisit is the subkey
+            Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(1);
+
+            HttpCookie aCookie = new HttpCookie("userInfo");
+            aCookie.Values["userName"] = "patrick";
+            aCookie.Values["lastVisit"] = DateTime.Now.ToString();
+            aCookie.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Add(aCookie);*/
+
+
             Response.Cookies.Append("UserName", username, new Microsoft.AspNetCore.Http.CookieOptions()
             {
                 IsEssential = true,
@@ -31,40 +44,5 @@ namespace StoreProject.Pages
             return RedirectToPage();
         }
 
-     
-         
-    /*private void LoadCartFromSession()
-    {
-        Cart = new List<LineItem>();
-        var CartJson = HttpContext.Session.GetString("CartJson");
-        if(CartJson != null)
-        {
-            foreach(var item in System.Text.Json.JsonSerializer.Deserialize<IEnumerable<LineItem>>(CartJson))
-            {
-                Cart.Add(item);
-            }
-        }
-    }
-
-
-    public async Task<IActionResult> OnPostAddItem(string itemName, int quantity)
-    {
-        LoadCartFromSession();
-
-        var existingLine = LoadCartFromSession.FirstOrDefault(i => i.Item.Name == itemName);
-
-        if(existingLine == null)
-        {
-            var item = new Item { Name = itemName, Price = 1.23M };
-            LoadCartFromSession.Add(new LineItem){
-                Item = item,
-
-            }
-        }
-    }
-    public void OnGet()
-    {
-
-    }*/
 }
 }

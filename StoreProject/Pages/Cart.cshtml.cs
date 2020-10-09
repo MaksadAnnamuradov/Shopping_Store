@@ -4,6 +4,9 @@ using StoreProject.Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Web;
+
 
 namespace StoreProject.Pages
 {
@@ -32,7 +35,7 @@ namespace StoreProject.Pages
         {
             cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
 
-            //Total = cart.Sum(i => i.Item.Price * castQuantity);
+            Total = cart.Sum(i => Convert.ToDouble(i.Item.Price) * Convert.ToDouble(i.Quantity));
         }
 
         public IActionResult OnGetAddToCart(int id)
@@ -68,6 +71,45 @@ namespace StoreProject.Pages
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
             return RedirectToPage("Cart");
+        }
+
+
+
+        public IActionResult OnGetCompleteOrder()
+        {
+            var cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
+/*
+            if (cart.Count() == 0){
+
+                Response.BodyWriter("<script>alert('Data inserted successfully')</script>");
+            }*/
+
+            var total = cart.Sum(i => Convert.ToDouble(i.Item.Price) * Convert.ToDouble(i.Quantity));
+
+            var purchaseDate = DateTime.Now.ToString();
+            Response.Cookies.Append("PurchaseDate", purchaseDate, new Microsoft.AspNetCore.Http.CookieOptions()
+            {
+                IsEssential = true,
+                MaxAge = TimeSpan.FromMinutes(5)
+            });
+
+           
+            Response.Cookies.Append("TotalSum", total.ToString(), new Microsoft.AspNetCore.Http.CookieOptions()
+            {
+                IsEssential = true,
+                MaxAge = TimeSpan.FromMinutes(5)
+            });
+
+
+           
+            cart.Clear();
+
+            
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+
+            
+            return RedirectToPage("Thanks");
         }
 
         public IActionResult OnGetDelete(int id)

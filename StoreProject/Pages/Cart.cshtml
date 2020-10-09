@@ -1,6 +1,7 @@
-﻿@page
+﻿@page 
 @model StoreProject.Pages.CartModel
 @{
+    ViewData["Title"] = "Cart";
 }
 
 <!DOCTYPE html>
@@ -9,48 +10,56 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Cart</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
-<body>
+<body class="p-3 mb-2 bg-light text-black-50">
 
     <h3>Cart</h3>
     <form method="post" asp-page="cart" asp-page-handler="Update">
-        <table border="1">
-            <tr>
-                
-                <th>Id</th>
-                <th>Name</th>
-              
-                <th>Price</th>
-                <th>Quantity <input type="submit" value="Update" /></th>
-                <th>Sub Total</th>
-                <th>Delete</th>
-            </tr>
-            @foreach (var item in Model.cart)
-            {
-                <tr align="center">
-                    
-                    <td>@item.Item.Id</td>
-                    <td>@item.Item.Name</td>
-                    
-                    <td>$@item.Item.Price</td>
-                    <td><input type="number" name="quantities" value="@item.Quantity" min="1" style="width: 50px;" /></td>
-                    <td>
-                        $@(item.Item.Price * item.Quantity)
-                    </td>
 
-                    <td align="center">
-                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Item.Id">X</a>
-                     </td>
+        <div class="container">
+            <table border="1" class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr class="active">
+
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity <input type="submit" value="Update" /></th>
+                        <th>Sub Total</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.cart)
+                {
+                    <tr align="center" class="table-info">
+
+                        <td>@item.Item.Id</td>
+                        <td>@item.Item.Name</td>
+
+                        <td>$@item.Item.Price</td>
+                        <td><input type="number" name="quantities" value="@item.Quantity" min="1" style="width: 50px;" /></td>
+                        <td>
+                            $@(item.Item.Price * item.Quantity)
+                        </td>
+
+                        <td align="center">
+                            <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Item.Id">X</a>
+                        </td>
+                    </tr>
+                }
+
+                <tr class="table-danger">
+                    <td colspan="4" align="right" style="font-weight:bold">Total</td>
+                    <td align="center">$@Model.Total</td>
                 </tr>
-            }
-
-           @* <tr>
-                <td colspan="6" align="right">Total</td>
-                <td align="center">$@Model.Total</td>
-            </tr>*@
-        </table>
+            </table>
+        </div>
     </form>
-    <a asp-page="index">Continue Shopping</a>
+
+
+    <button class="btn btn-outline-primary bg-success"><a asp-page="./Cart" asp-page-handler="CompleteOrder">Complete Order</a></button>
+
 
 </body>
 </html>
