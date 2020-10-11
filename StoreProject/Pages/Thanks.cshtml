@@ -13,9 +13,13 @@
 
 <body class="p-3 mb-2 bg-info text-white">
 
-    <h1>Thank you for your order!</h1>
+    <h1>Thank you for your order @Request.Cookies["UserName"]!</h1>
 
-    <button class="btn btn-outline-primary bg-success"><a asp-page="Cart" style="font-weight:bold"> Continue Shopping! </a></button>
+    <br />
+
+    <h2>Your item is on the way already!</h2>
+
+    <button class="btn btn-outline-primary bg-success"><a asp-page="DisplayItems" style="font-weight:bold"> Continue Shopping </a></button>
 
 </body>
 </html>

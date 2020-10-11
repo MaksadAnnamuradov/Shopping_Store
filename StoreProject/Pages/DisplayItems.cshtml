@@ -1,5 +1,6 @@
 ﻿@page "Store"
 @model StoreProject.Pages.DisplayItems
+
 @{
     ViewData["Title"] = "Store";
 }
@@ -10,8 +11,8 @@
 </head>
 <body class="p-3 mb-2 bg-light text-dark">
 
-    <h3>@Request.Cookies["UserName"]: Last Purchase @Request.Cookies["PurchaseDate"] with Total Sum of @Request.Cookies["TotalSum"]</h3>
-   
+    <h3>@Request.Cookies["UserName"]: Last Purchase on @Request.Cookies["PurchaseDate"] with Total Sum of @Request.Cookies["TotalSum"]</h3>
+
     <h1>Items</h1>
 
     <div class="container">
@@ -39,8 +40,8 @@
                         </td>
                         <td>
                             <button class="btn btn-outline-primary bg-success"><a asp-page="./Cart" asp-page-handler="AddToCart" asp-route-id="@item.Id">Add to Cart</a></button>
-
                         </td>
+              
                     </tr>
                 }
             </tbody>

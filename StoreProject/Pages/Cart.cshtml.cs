@@ -78,11 +78,12 @@ namespace StoreProject.Pages
         public IActionResult OnGetCompleteOrder()
         {
             var cart = SessionHelper.GetObjectFromJson(HttpContext.Session, "cart");
-/*
-            if (cart.Count() == 0){
 
-                Response.BodyWriter("<script>alert('Data inserted successfully')</script>");
-            }*/
+
+            if (cart.Count == 0)
+            {
+                return RedirectToPage("Error");
+            }
 
             var total = cart.Sum(i => Convert.ToDouble(i.Item.Price) * Convert.ToDouble(i.Quantity));
 
@@ -100,8 +101,14 @@ namespace StoreProject.Pages
                 MaxAge = TimeSpan.FromMinutes(5)
             });
 
+           /* List<string> myList = new List<string>();
 
-           
+            myList.Add(purchaseDate);
+            myList.Add(Total.ToString());
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "Checkout", myList);*/
+
+
             cart.Clear();
 
             

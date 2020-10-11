@@ -25,7 +25,7 @@ namespace StoreProject.Pages
         public IActionResult OnPostSaveUserNameAsync(String username)
         {
 
-            /*Response.Cookies["userInfo"]["userName"] = "patrick"; //userInfo is the cookie, userName is the subkey
+           /* Response.Cookies["userInfo"]["userName"] = "patrick"; //userInfo is the cookie, userName is the subkey
             Response.Cookies["userInfo"]["lastVisit"] = DateTime.Now.ToString(); //now lastVisit is the subkey
             Response.Cookies["userInfo"].Expires = DateTime.Now.AddDays(1);
 
